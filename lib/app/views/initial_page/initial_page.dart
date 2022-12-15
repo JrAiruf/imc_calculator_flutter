@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
-
 import '../../controllers/initial_controller/initial_controller.dart';
 import '../../models/user_model.dart';
 
@@ -60,7 +59,7 @@ class InitialPage extends GetView<InitialController> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                             ),
-                            keyboardType: TextInputType.number,
+                            keyboardType: TextInputType.emailAddress,
                           ),
                           const SizedBox(
                             height: 5,
@@ -86,7 +85,7 @@ class InitialPage extends GetView<InitialController> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                             ),
-                            keyboardType: TextInputType.number,
+                            keyboardType: TextInputType.emailAddress,
                           ),
                           const SizedBox(
                             height: 45,

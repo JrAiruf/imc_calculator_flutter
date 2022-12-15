@@ -78,7 +78,8 @@ class Home extends GetView<HomeController> {
                                 color: Colors.purple, width: 3)),
                         onPressed: () {
                           if (controller.heightController.text.isNotEmpty &&
-                              controller.weightController.text.isNotEmpty) {
+                              controller.weightController.text.isNotEmpty &&
+                              controller.weightController.text.length == 5) {
                             final imc = controller.calculateImc(
                                 weight: controller.weightController.text,
                                 height: controller.heightController.text);

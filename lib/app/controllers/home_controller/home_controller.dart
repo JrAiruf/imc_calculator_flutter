@@ -13,9 +13,9 @@ class HomeController extends GetxController {
   Rx<UserModel> user = UserModel().obs;
 
   String? calculateImc({@required String? weight, @required String? height}) {
-    user.value.currentImc =
-        (double.parse(weight!.replaceAll('.', '')) / (double.parse(height!.replaceAll('.', '')) * double.parse(height)))
-            .toStringAsFixed(2);
+    user.value.currentImc = (double.parse(weight!.replaceAll('.', '')) /
+            (double.parse(height!.replaceAll('.', '')) * double.parse(height)))
+        .toStringAsFixed(2);
     return user.value.currentImc;
   }
 
