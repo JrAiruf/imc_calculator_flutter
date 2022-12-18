@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 abstract class AppDataSource {
-  Future<dynamic>? getCollection();
+  Future<List<QueryDocumentSnapshot<Map<String,dynamic>>>>? getCollection();
 }

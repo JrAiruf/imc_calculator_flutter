@@ -39,6 +39,7 @@ class Home extends GetView<HomeController> {
                         height: 20,
                       ),
                       TextFormField(
+                        inputFormatters: [controller.heightMask],
                         controller: controller.heightController,
                         decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
@@ -56,6 +57,11 @@ class Home extends GetView<HomeController> {
                         height: 5,
                       ),
                       TextFormField(
+                        onChanged: (value) {
+                          controller.updateMask(value);
+                          print(value);
+                        },
+                        inputFormatters: [controller.weightMask],
                         controller: controller.weightController,
                         decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
@@ -78,8 +84,7 @@ class Home extends GetView<HomeController> {
                                 color: Colors.purple, width: 3)),
                         onPressed: () {
                           if (controller.heightController.text.isNotEmpty &&
-                              controller.weightController.text.isNotEmpty &&
-                              controller.weightController.text.length == 5) {
+                              controller.weightController.text.isNotEmpty) {
                             final imc = controller.calculateImc(
                                 weight: controller.weightController.text,
                                 height: controller.heightController.text);
@@ -227,11 +232,12 @@ class Home extends GetView<HomeController> {
                               ),
                               backgroundColor: Colors.purple,
                               content: SizedBox(
-                                  height: height * 0.025,
+                                  height: height * 0.07,
                                   width: width * 0.95,
                                   child: const Center(
                                     child: Text(
-                                      'Informe os dados corretamente',
+                                      textAlign: TextAlign.center,
+                                      'Informe os dados corretamente \n Altura(0.00)\n Peso(00.00) ',
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 16,

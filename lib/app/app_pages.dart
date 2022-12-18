@@ -16,7 +16,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.INITIALSCREEN,
-      page: () => const InitialPage(),
+      page: () => InitialPage(),
       binding: InitialBind(),
     ),
     GetPage(

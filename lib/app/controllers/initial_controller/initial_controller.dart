@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-
-import '../../data/firebase_datasource/firebase_datasource.dart';
+import '../../data/repositories/user_repository.dart';
 import '../../models/user_model.dart';
 
 class InitialController extends GetxController {
-  InitialController({FirebaseDatabase? firebaseDatabase})
-      : _firebaseDatabase = firebaseDatabase!;
+  InitialController({UserRepository? userRepository})
+      : _userRepository = userRepository!;
 
-  final FirebaseDatabase _firebaseDatabase;
+  final UserRepository _userRepository;
 
   final emailController = TextEditingController();
   final nameController = TextEditingController();
@@ -16,7 +15,6 @@ class InitialController extends GetxController {
   final userKey = GlobalKey<FormState>();
 
   Future<void> addUser({@required UserModel? user}) async {
-    final result = await _firebaseDatabase.getCollection();
-    result!.add(user!.toMap());
+    await _userRepository.addUser(user: user!);
   }
 }

@@ -17,6 +17,7 @@ dependencies:
   firebase_core: ^2.1.1
   cloud_firestore: ^4.1.0
   flutter_native_splash: ^2.2.16
+  mask_text_input_formatter: ^2.4.0
 
 flutter_native_splash:
   color: "#4d025d"

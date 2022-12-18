@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:get/get.dart';
+import 'package:imc_calculator_flutter/app/app_routes.dart';
 import '../../controllers/initial_controller/initial_controller.dart';
 import '../../models/user_model.dart';
 
 class InitialPage extends GetView<InitialController> {
-  const InitialPage({this.user, super.key});
+  InitialPage({super.key});
 
-  final UserModel? user;
+  UserModel user = UserModel();
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -39,6 +39,7 @@ class InitialPage extends GetView<InitialController> {
                             height: 20,
                           ),
                           TextFormField(
+                            onSaved: (value) => user.email =  controller.emailController.text,
                             controller: controller.emailController,
                             decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
@@ -65,6 +66,7 @@ class InitialPage extends GetView<InitialController> {
                             height: 5,
                           ),
                           TextFormField(
+                            onSaved: (value) => user.name = controller.nameController.text,
                             controller: controller.nameController,
                             decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
@@ -94,8 +96,10 @@ class InitialPage extends GetView<InitialController> {
                             style: OutlinedButton.styleFrom(
                               backgroundColor: Colors.white,
                             ),
-                            onPressed: () {
+                            onPressed: () async {
                               controller.userKey.currentState!.save();
+                              await controller.addUser(user: user);
+                              Get.offNamed(AppRoutes.APPHOME);
                             },
                             child: const SizedBox(
                               height: 50,

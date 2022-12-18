@@ -2,9 +2,9 @@
 import 'dart:convert';
 
 class ImcModel {
-  double? weight;
-  double? height;
-  double? result;
+  String? weight;
+  String? height;
+  String? result;
 
   ImcModel({this.weight, this.height, this.result});
 
@@ -18,9 +18,9 @@ class ImcModel {
 
   factory ImcModel.fromMap(Map<String, dynamic> map) {
     return ImcModel(
-      weight: map['weight'] != null ? map['weight'] as double : null,
-      height: map['height'] != null ? map['height'] as double : null,
-      result: map['result'] != null ? map['result'] as double : null,
+      weight: map['weight'] != null ? map['weight'] as String : null,
+      height: map['height'] != null ? map['height'] as String : null,
+      result: map['result'] != null ? map['result'] as String : null,
     );
   }
 
