@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../data/repositories/user_repository.dart';
 import '../../models/user_model.dart';
@@ -15,6 +16,10 @@ class InitialController extends GetxController {
   final userKey = GlobalKey<FormState>();
 
   Future<void> addUser({@required UserModel? user}) async {
-    await _userRepository.addUser(user: user!);
+    try {
+      await _userRepository.addUser(user: user!);
+    } on PlatformException catch (e) {
+      throw Error();
+    }
   }
 }
