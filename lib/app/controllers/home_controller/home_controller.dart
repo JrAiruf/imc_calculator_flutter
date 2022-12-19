@@ -4,12 +4,11 @@ import '../../models/user_model.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class HomeController extends GetxController {
-
   final heightController = TextEditingController();
   final weightController = TextEditingController();
 
   Rx<UserModel> user = UserModel().obs;
-  
+
   MaskTextInputFormatter heightMask = MaskTextInputFormatter(mask: '#.##');
   MaskTextInputFormatter weightMask = MaskTextInputFormatter(mask: '##.##');
 

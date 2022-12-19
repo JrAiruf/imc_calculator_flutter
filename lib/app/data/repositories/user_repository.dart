@@ -6,7 +6,11 @@ class UserRepository {
       : _appDataSource = appDatasource!;
   final AppDataSource _appDataSource;
 
-  Future<void> addUser({UserModel? user}) async {
-    await _appDataSource.addUserToDatabase(user: user!.toMap());
+  UserModel? userModel = UserModel();
+ 
+
+  Future<UserModel> getUserImc() async {
+    final result = await _appDataSource.getUserImc();
+    return UserModel.fromMap(result!.data()!);
   }
 }

@@ -5,7 +5,7 @@ import 'package:imc_calculator_flutter/app/data/firebase_datasource/firebase_dat
 class HomeControllerBind extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => FirebaseDatabase(),fenix: true);
+    Get.lazyPut(() => FirebaseDatabase(), fenix: true);
     Get.lazyPut(() => HomeController(),fenix: true);
   }
 }

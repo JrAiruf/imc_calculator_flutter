@@ -20,7 +20,7 @@ class ImcCalculatorApp extends StatelessWidget {
     return GetMaterialApp(
       initialBinding: HomeControllerBind(),
       getPages: AppPages.routes,
-      initialRoute: AppRoutes.INITIALSCREEN,
+      initialRoute: AppRoutes.APPHOME,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.purple,

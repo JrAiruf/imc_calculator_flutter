@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:imc_calculator_flutter/app/controllers/home_controller/home_controller.dart';
-
 import '../components/app_bottom_navigation_bar.dart';
 import '../components/navigation_bar_enum.dart';
 
@@ -59,7 +58,6 @@ class Home extends GetView<HomeController> {
                       TextFormField(
                         onChanged: (value) {
                           controller.updateMask(value);
-                          print(value);
                         },
                         inputFormatters: [controller.weightMask],
                         controller: controller.weightController,
@@ -82,13 +80,13 @@ class Home extends GetView<HomeController> {
                         style: OutlinedButton.styleFrom(
                             side: const BorderSide(
                                 color: Colors.purple, width: 3)),
-                        onPressed: () {
+                        onPressed: () async {
                           if (controller.heightController.text.isNotEmpty &&
-                              controller.weightController.text.isNotEmpty) {
+                              controller.weightController.text.isNotEmpty &&
+                              controller.weightController.text.length > 3) {
                             final imc = controller.calculateImc(
                                 weight: controller.weightController.text,
                                 height: controller.heightController.text);
-
                             Get.defaultDialog(
                               actions: [
                                 Padding(
@@ -247,10 +245,10 @@ class Home extends GetView<HomeController> {
                             );
                           }
                         },
-                        child: const SizedBox(
+                        child: SizedBox(
                           height: 50,
-                          width: 150,
-                          child: Center(
+                          width: width * 0.9,
+                          child: const Center(
                             child: Text(
                               'Calcular',
                               style: TextStyle(
