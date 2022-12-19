@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:imc_calculator_flutter/app/controllers/home_controller/home_controller.dart';
+import '../../app_routes.dart';
+import '../../models/imc_model.dart';
 import '../components/app_bottom_navigation_bar.dart';
 import '../components/navigation_bar_enum.dart';
 
-class Home extends GetView<HomeController> {
-  const Home({super.key});
+final _formkey = GlobalKey<FormState>();
 
+class Home extends GetView<HomeController> {
+  Home({super.key});
+
+  ImcModel imcModel = ImcModel();
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -26,6 +31,7 @@ class Home extends GetView<HomeController> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                 child: Form(
+                  key: _formkey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -38,6 +44,9 @@ class Home extends GetView<HomeController> {
                         height: 20,
                       ),
                       TextFormField(
+                        onSaved: (value) {
+                          imcModel.height = value;
+                        },
                         inputFormatters: [controller.heightMask],
                         controller: controller.heightController,
                         decoration: InputDecoration(
@@ -56,6 +65,9 @@ class Home extends GetView<HomeController> {
                         height: 5,
                       ),
                       TextFormField(
+                        onSaved: (value) {
+                          imcModel.weight = value;
+                        },
                         onChanged: (value) {
                           controller.updateMask(value);
                         },
@@ -84,7 +96,8 @@ class Home extends GetView<HomeController> {
                           if (controller.heightController.text.isNotEmpty &&
                               controller.weightController.text.isNotEmpty &&
                               controller.weightController.text.length > 3) {
-                            final imc = controller.calculateImc(
+                            _formkey.currentState!.save();
+                            imcModel.result = controller.calculateImc(
                                 weight: controller.weightController.text,
                                 height: controller.heightController.text);
                             Get.defaultDialog(
@@ -136,7 +149,7 @@ class Home extends GetView<HomeController> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'Seu imc é: ${imc ?? ''}',
+                                      'Seu imc é: ${imcModel.result ?? ''}',
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 20,
@@ -170,7 +183,14 @@ class Home extends GetView<HomeController> {
                                                   style: TextButton.styleFrom(
                                                     fixedSize: Size(18, 30),
                                                   ),
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    controller
+                                                        .saveUserImc(imcModel);
+                                                    Get.back();
+                                                    controller.clearFields();
+                                                    Get.toNamed(
+                                                        AppRoutes.IMCSCREEN,arguments: imcModel);
+                                                  },
                                                   child: const Text(
                                                     'Sim',
                                                     style: TextStyle(

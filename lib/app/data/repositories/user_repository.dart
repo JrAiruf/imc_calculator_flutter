@@ -7,10 +7,14 @@ class UserRepository {
   final AppDataSource _appDataSource;
 
   UserModel? userModel = UserModel();
- 
 
-  Future<UserModel> getUserImc() async {
-    final result = await _appDataSource.getUserImc();
-    return UserModel.fromMap(result!.data()!);
+  Future<List<Map<String, dynamic>>> getUserImc(
+      {required Map<String, dynamic> userData}) async {
+    final imcList = await _appDataSource.getUserImc(userData: userData);
+    return imcList;
+  }
+
+  Future<void> saveUserImc(Map<String, dynamic> userImc) async {
+    await _appDataSource.saveUserImc(userImc);
   }
 }

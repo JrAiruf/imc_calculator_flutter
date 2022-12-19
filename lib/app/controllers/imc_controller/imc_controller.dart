@@ -1,13 +1,24 @@
 import 'package:get/get.dart';
-import '../../data/firebase_datasource/firebase_datasource.dart';
+import 'package:imc_calculator_flutter/app/data/repositories/user_repository.dart';
 import '../../models/imc_model.dart';
 
 class ImcController extends GetxController {
-  ImcController({FirebaseDatabase? firebaseDatabase})
-      : _firebaseDatabase = firebaseDatabase!;
+  ImcController({UserRepository? userRepository})
+      : _userRepository = userRepository!;
 
-  final FirebaseDatabase _firebaseDatabase;
+  final UserRepository _userRepository;
 
-  Rx<ImcModel> imc = ImcModel().obs;
+  List<ImcModel> imcList = [];
 
+  final isLoading = false.obs;
+
+  Future<List<ImcModel>> getUserImc({ImcModel? imcModel}) async {
+    isLoading.value = true;
+    final result =
+        await _userRepository.getUserImc(userData: imcModel!.toMap());
+    imcList = result.map((data) => ImcModel.fromMap(data)).toList();
+    isLoading.value = false;
+    update();
+    return imcList;
+  }
 }

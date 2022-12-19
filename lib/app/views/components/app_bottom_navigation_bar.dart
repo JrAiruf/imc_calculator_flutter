@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:imc_calculator_flutter/app/app_routes.dart';
 import 'package:imc_calculator_flutter/app/views/components/navigation_bar_enum.dart';
 

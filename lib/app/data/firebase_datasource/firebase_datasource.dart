@@ -3,22 +3,15 @@ import 'package:imc_calculator_flutter/app/data/app_data_source.dart';
 
 class FirebaseDatabase implements AppDataSource {
   @override
-  Future<void> saveUserImc(Map<String, dynamic>? user) async {
-    final result = FirebaseFirestore.instance.collection('users').doc();
-    result.set(user!);
+  Future<void> saveUserImc(Map<String, dynamic>? userImc) async {
+    FirebaseFirestore.instance.collection('users').add(userImc!);
   }
 
   @override
-  Future<DocumentSnapshot<Map<String, dynamic>>>? getUserImc() {
-    final result = FirebaseFirestore.instance.collection('users').doc().get();
-    return result;
-  }
-
-  @override
-  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>>?
-      getAllUsers() async {
-    final result = FirebaseFirestore.instance.collection('users');
-    QuerySnapshot<Map<String, dynamic>> body = await result.get();
-    return body.docs;
+  Future<List<Map<String, dynamic>>> getUserImc(
+      {required Map<String, dynamic> userData}) async {
+    final result = await FirebaseFirestore.instance.collection('users').get();
+    final list = result.docs.map((items) => items.data()).toList();
+    return list;
   }
 }

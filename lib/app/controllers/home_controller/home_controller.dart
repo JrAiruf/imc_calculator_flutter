@@ -1,9 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import '../../data/repositories/user_repository.dart';
+import '../../models/imc_model.dart';
 import '../../models/user_model.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class HomeController extends GetxController {
+  HomeController({required UserRepository userRepository})
+      : _userRepository = userRepository;
+
+  UserRepository _userRepository;
+
   final heightController = TextEditingController();
   final weightController = TextEditingController();
 
@@ -13,10 +20,10 @@ class HomeController extends GetxController {
   MaskTextInputFormatter weightMask = MaskTextInputFormatter(mask: '##.##');
 
   String? calculateImc({@required String? weight, @required String? height}) {
-    user.value.currentImc = (double.parse(weight!.replaceAll('.', '')) /
+    final result = (double.parse(weight!.replaceAll('.', '')) /
             (double.parse(height!.replaceAll('.', '')) * double.parse(height)))
         .toStringAsFixed(2);
-    return user.value.currentImc;
+    return result;
   }
 
   updateMask(String value) {
@@ -30,5 +37,8 @@ class HomeController extends GetxController {
   clearFields() {
     heightController.clear();
     weightController.clear();
+  }
+  Future<void> saveUserImc(ImcModel userImc) async {
+    await _userRepository.saveUserImc(userImc.toMap());
   }
 }
