@@ -20,7 +20,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.INFORMATIONPAGE,
-      page: () => const InformationPage(),
+      page: () => InformationPage(),
     ),
   ];
 }
