@@ -5,14 +5,21 @@ class ImcModel {
   String? weight;
   String? height;
   String? result;
+  String? lastCalculation;
 
-  ImcModel({this.weight, this.height, this.result});
+  ImcModel({
+    this.weight,
+    this.height,
+    this.result,
+    this.lastCalculation,
+  });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'weight': weight,
       'height': height,
       'result': result,
+      'lastCalculation': lastCalculation,
     };
   }
 
@@ -21,6 +28,7 @@ class ImcModel {
       weight: map['weight'] != null ? map['weight'] as String : null,
       height: map['height'] != null ? map['height'] as String : null,
       result: map['result'] != null ? map['result'] as String : null,
+      lastCalculation: map['lastCalculation'] != null ? map['lastCalculation'] as String : null,
     );
   }
 

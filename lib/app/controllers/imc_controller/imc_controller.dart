@@ -12,10 +12,10 @@ class ImcController extends GetxController {
 
   final isLoading = false.obs;
 
-  Future<List<ImcModel>> getUserImc({ImcModel? imcModel}) async {
+  Future<List<ImcModel>> getUserImc(ImcModel imcModel) async {
     isLoading.value = true;
     final result =
-        await _userRepository.getUserImc(userData: imcModel!.toMap());
+        await _userRepository.getAllUserImc(userData: imcModel.toMap());
     imcList = result.map((data) => ImcModel.fromMap(data)).toList();
     isLoading.value = false;
     update();

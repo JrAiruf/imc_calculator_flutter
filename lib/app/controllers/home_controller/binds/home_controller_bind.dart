@@ -7,7 +7,9 @@ class HomeControllerBind extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => FirebaseDatabase(), fenix: true);
-    Get.lazyPut(() => UserRepository(appDatasource: Get.find<FirebaseDatabase>()),fenix: true);
-    Get.lazyPut(() => HomeController(userRepository: Get.find()));
+    Get.lazyPut(
+        () => UserRepository(appDatasource: Get.find<FirebaseDatabase>()),
+        fenix: true);
+    Get.lazyPut(() => HomeController(userRepository: Get.find()), fenix: true);
   }
 }

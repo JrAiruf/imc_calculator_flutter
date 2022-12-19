@@ -97,6 +97,7 @@ class Home extends GetView<HomeController> {
                               controller.weightController.text.isNotEmpty &&
                               controller.weightController.text.length > 3) {
                             _formkey.currentState!.save();
+                            imcModel.lastCalculation = DateTime.now().toString();
                             imcModel.result = controller.calculateImc(
                                 weight: controller.weightController.text,
                                 height: controller.heightController.text);
@@ -188,8 +189,9 @@ class Home extends GetView<HomeController> {
                                                         .saveUserImc(imcModel);
                                                     Get.back();
                                                     controller.clearFields();
-                                                    Get.toNamed(
-                                                        AppRoutes.IMCSCREEN,arguments: imcModel);
+                                                    Get.offNamed(
+                                                        AppRoutes.IMCSCREEN,
+                                                        arguments: imcModel);
                                                   },
                                                   child: const Text(
                                                     'Sim',
