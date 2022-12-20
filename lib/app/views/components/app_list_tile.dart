@@ -5,10 +5,11 @@ import '../../models/imc_model.dart';
 
 class AppListTile extends StatelessWidget {
   const AppListTile(
-      {super.key, required this.imcData, this.height, this.width});
+      {super.key, required this.imcData, this.height, this.width, this.onTap});
   final ImcModel imcData;
   final double? height;
   final double? width;
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -74,7 +75,6 @@ class AppListTile extends StatelessWidget {
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Container(
                     height: height! * 0.22,
@@ -85,72 +85,141 @@ class AppListTile extends StatelessWidget {
                     style: const TextStyle(
                         fontWeight: FontWeight.w600, fontSize: 25),
                   ),
-                  IconButton(
-                      onPressed: () {
-                        Get.defaultDialog(
-                          middleTextStyle: const TextStyle(
-                              color: Colors.purple,
-                              fontWeight: FontWeight.bold),
-                          title: '',
-                          middleText: 'Deseja selecionar este resultado?',
-                          actions: [
-                            Container(
-                              width: width! * 0.9,
-                              height: 85,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          Get.defaultDialog(
+                            middleTextStyle: const TextStyle(
+                                color: Colors.purple,
+                                fontWeight: FontWeight.bold),
+                            title: '',
+                            middleText: 'Deseja excluir este resultado?',
+                            actions: [
+                              Container(
+                                width: width! * 0.9,
+                                height: 85,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          TextButton(
+                                            style: TextButton.styleFrom(
+                                              fixedSize: const Size(18, 30),
+                                            ),
+                                            onPressed: onTap,
+                                            child: const Text(
+                                              'Sim',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.purple,
+                                              ),
+                                            ),
+                                          ),
+                                          TextButton(
+                                            style: TextButton.styleFrom(
+                                              fixedSize: const Size(18, 30),
+                                            ),
+                                            onPressed: () {
+                                              Get.back();
+                                            },
+                                            child: const Text(
+                                              'Não',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.purple,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                            ],
+                          );
+                        },
+                        icon: const Icon(Icons.highlight_remove_sharp),
+                      ),
+                      const SizedBox(width: 35),
+                      IconButton(
+                          onPressed: () {
+                            Get.defaultDialog(
+                              middleTextStyle: const TextStyle(
+                                  color: Colors.purple,
+                                  fontWeight: FontWeight.bold),
+                              title: '',
+                              middleText: 'Deseja selecionar este resultado?',
+                              actions: [
+                                Container(
+                                  width: width! * 0.9,
+                                  height: 85,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
                                       children: [
-                                        TextButton(
-                                          style: TextButton.styleFrom(
-                                            fixedSize: const Size(18, 30),
-                                          ),
-                                          onPressed: () {
-                                            Get.offAllNamed(
-                                                AppRoutes.INFORMATIONPAGE,
-                                                arguments: imcData);
-                                          },
-                                          child: const Text(
-                                            'Sim',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.purple,
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            TextButton(
+                                              style: TextButton.styleFrom(
+                                                fixedSize: const Size(18, 30),
+                                              ),
+                                              onPressed: () {
+                                                Get.offAllNamed(
+                                                    AppRoutes.INFORMATIONPAGE,
+                                                    arguments: imcData);
+                                              },
+                                              child: const Text(
+                                                'Sim',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.purple,
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                        TextButton(
-                                          style: TextButton.styleFrom(
-                                            fixedSize: const Size(18, 30),
-                                          ),
-                                          onPressed: () {
-                                            Get.back();
-                                          },
-                                          child: const Text(
-                                            'Não',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.purple,
+                                            TextButton(
+                                              style: TextButton.styleFrom(
+                                                fixedSize: const Size(18, 30),
+                                              ),
+                                              onPressed: () {
+                                                Get.back();
+                                              },
+                                              child: const Text(
+                                                'Não',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.purple,
+                                                ),
+                                              ),
                                             ),
-                                          ),
+                                          ],
                                         ),
                                       ],
                                     ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                      icon: const Icon(Icons.arrow_forward_ios))
+                              ],
+                            );
+                          },
+                          icon: const Icon(Icons.arrow_forward_ios)),
+                    ],
+                  )
                 ],
               ),
             ],

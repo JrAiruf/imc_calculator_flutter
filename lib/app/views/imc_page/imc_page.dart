@@ -26,10 +26,13 @@ class ImcPage extends GetView<ImcController> {
       body: SizedBox(
         height: height,
         width: width,
-        child: FutureBuilder(
-            future: controller.getAllUserImc(Get.arguments ?? ImcModel()),
-            builder: (_, list) {
-              if (!list.hasData) {
+        child: GetBuilder(
+            initState: (_) {
+              controller.getAllUserImc(Get.arguments ?? ImcModel());
+            },
+            init: controller,
+            builder: (_) {
+              if (controller.imcList.isEmpty) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
@@ -40,6 +43,12 @@ class ImcPage extends GetView<ImcController> {
                   itemCount: controller.imcList.length,
                   itemBuilder: (_, index) {
                     return AppListTile(
+                      onTap: () async {
+                        await controller
+                            .deleteUserImc(controller.imcList[index]);
+                        Get.back();
+                        print("ta osso!");
+                      },
                       imcData: controller.imcList[index],
                       height: height * 0.2,
                       width: width * 0.9,

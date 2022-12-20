@@ -20,4 +20,10 @@ class UserRepository {
   Future<void> saveUserImc(Map<String, dynamic> userImc) async {
     await _appDataSource.saveUserImc(userImc);
   }
+
+  Future<List<Map<String, dynamic>>> deleteUserImc(
+      Map<String, dynamic> userImc) async {
+    final result = await _appDataSource.deleteUserImc(userImc);
+    return result!;
+  }
 }

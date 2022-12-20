@@ -14,8 +14,20 @@ class ImcController extends GetxController {
   final alert = false.obs;
 
   Future<ImcModel> getUserImc(ImcModel imcData) async {
+    isLoading.value = true;
     final data = await _userRepository.getUserImc(userData: imcData.toMap());
+    isLoading.value = false;
     return ImcModel.fromMap(data!);
+  }
+
+  Future<List<ImcModel>> deleteUserImc(ImcModel imcData) async {
+    isLoading.value = true;
+    final result = await _userRepository.deleteUserImc(imcData.toMap());
+    imcList = result.map((item) => ImcModel.fromMap(item)).toList();
+    imcList.remove(imcData);
+    isLoading.value = false;
+    update();
+    return imcList;
   }
 
   Future<List<ImcModel>> getAllUserImc(ImcModel imcModel) async {
