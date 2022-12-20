@@ -12,7 +12,6 @@ class FirebaseDatabase implements AppDataSource {
         .doc(userData['id'])
         .delete();
     final result = await FirebaseFirestore.instance.collection("users").get();
-    print("Chamada");
     return result.docs.map((data) => data.data()).toList();
   }
 

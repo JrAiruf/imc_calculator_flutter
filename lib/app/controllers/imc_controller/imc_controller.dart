@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:imc_calculator_flutter/app/data/repositories/user_repository.dart';
 import '../../models/imc_model.dart';
@@ -12,6 +13,7 @@ class ImcController extends GetxController {
 
   final isLoading = false.obs;
   final alert = false.obs;
+  final danger = false.obs;
 
   Future<ImcModel> getUserImc(ImcModel imcData) async {
     isLoading.value = true;
@@ -45,28 +47,34 @@ class ImcController extends GetxController {
     if (result < 18.5) {
       alert.value = true;
       return 'Com o peso atual, o resultado do imc está baixo para sua altura.';
-    } else if (result > 18.5 && result < 24.9) {
+    } else if (result > 18.5 && result < 24.99) {
       alert.value = false;
       return 'Nessa faixa de peso, o resultado do imc é considerado normal.';
-    } else if (result > 25 && result < 29.9) {
+    } else if (result > 25 && result < 29.99) {
       alert.value = true;
       return 'O resultado do imc atual é apontado como sobrepeso.';
-    } else if (result > 30 && result < 34.9) {
+    } else if (result > 30 && result < 34.99) {
       alert.value = true;
       return 'O resultado do imc atual é apontado como obesidade de grau 1.';
-    } else if (result > 35 && result < 39.9) {
-      alert.value = true;
+    } else if (result > 35 && result < 39.99) {
+      danger.value = true;
       return 'O resultado do imc atual é apontado como obesidade de grau 2.';
     } else {
-      alert.value = true;
+      danger.value = true;
       return 'O resultado do imc atual é apontado como obesidade de grau 3.';
+    }
+  }
+
+  Color setColors(SetSafety safeLevel) {
+    switch (safeLevel) {
+      case SetSafety.danger:
+        return Colors.redAccent;
+      case SetSafety.beware:
+        return Colors.amber;
+      case SetSafety.normal:
+        return Colors.green;
     }
   }
 }
 
-/* Menor que 18.5	Magreza
-	Normal
-25 a 29.9	Sobrepeso
-30 a 34.9	Obesidade grau I
-35 a 39.9	Obesidade grau II
-Maior que 40	Obesidade grau III */
+enum SetSafety { danger, beware, normal }

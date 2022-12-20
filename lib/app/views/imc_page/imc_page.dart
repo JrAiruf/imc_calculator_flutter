@@ -32,10 +32,19 @@ class ImcPage extends GetView<ImcController> {
             },
             init: controller,
             builder: (_) {
-              if (controller.imcList.isEmpty) {
+              if (controller.isLoading.value) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
+              } else if (controller.imcList.isEmpty) {
+                return const Center(
+                    child: Text(
+                  'Nenhum resultado',
+                  style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.purple,
+                      fontWeight: FontWeight.w500),
+                ));
               }
               return ListView.builder(
                   scrollDirection: Axis.vertical,
@@ -47,7 +56,6 @@ class ImcPage extends GetView<ImcController> {
                         await controller
                             .deleteUserImc(controller.imcList[index]);
                         Get.back();
-                        print("ta osso!");
                       },
                       imcData: controller.imcList[index],
                       height: height * 0.2,
