@@ -8,10 +8,13 @@ class AppInformationCard extends StatelessWidget {
     Key? key,
     required this.imcModel,
     this.informationText,
+    this.iconColor,
+    this.icon,
   }) : super(key: key);
-
+  final Color? iconColor;
   final ImcModel imcModel;
-  final String? informationText;
+  final Widget? informationText;
+  final IconData? icon;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -78,21 +81,17 @@ class AppInformationCard extends StatelessWidget {
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 35),
                   ),
-                  const Icon(
-                    Icons.check_circle_outline,
+                  Icon(
+                    icon,
                     size: 45,
-                    color: Colors.green,
+                    color: iconColor,
                   )
                 ],
               ),
               const SizedBox(
                 height: 20,
               ),
-              Text(
-                informationText ?? '',
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-              ),
+              informationText?? const Text('')
             ],
           ),
         ),

@@ -105,9 +105,16 @@ class InformationPage extends GetView<ImcController> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     AppInformationCard(
+                       informationText: Text(controller
+                          .setImcResultInformation(imcModel ?? ImcModel())!),
+                      icon: controller.alert.value == true
+                          ? Icons.dangerous_outlined
+                          : Icons.done_rounded,
+                      iconColor: controller.alert.value == true
+                          ? Colors.red
+                          : Colors.green,
                       imcModel: imcModel ?? ImcModel(),
-                      informationText: controller
-                          .setImcResultInformation(imcModel ?? ImcModel())!,
+                     
                     ),
                   ],
                 ),

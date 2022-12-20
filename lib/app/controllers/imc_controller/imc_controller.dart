@@ -11,7 +11,8 @@ class ImcController extends GetxController {
   List<ImcModel> imcList = [];
 
   final isLoading = false.obs;
-  
+  final alert = false.obs;
+
   Future<ImcModel> getUserImc(ImcModel imcData) async {
     final data = await _userRepository.getUserImc(userData: imcData.toMap());
     return ImcModel.fromMap(data!);
@@ -30,16 +31,22 @@ class ImcController extends GetxController {
   String? setImcResultInformation(ImcModel imcData) {
     final result = double.parse(imcData.result ?? '1');
     if (result < 18.5) {
+      alert.value = true;
       return 'Com o peso atual, o resultado do imc está baixo para sua altura.';
     } else if (result > 18.5 && result < 24.9) {
+      alert.value = false;
       return 'Nessa faixa de peso, o resultado do imc é considerado normal.';
     } else if (result > 25 && result < 29.9) {
+      alert.value = true;
       return 'O resultado do imc atual é apontado como sobrepeso.';
     } else if (result > 30 && result < 34.9) {
+      alert.value = true;
       return 'O resultado do imc atual é apontado como obesidade de grau 1.';
     } else if (result > 35 && result < 39.9) {
+      alert.value = true;
       return 'O resultado do imc atual é apontado como obesidade de grau 2.';
     } else {
+      alert.value = true;
       return 'O resultado do imc atual é apontado como obesidade de grau 3.';
     }
   }

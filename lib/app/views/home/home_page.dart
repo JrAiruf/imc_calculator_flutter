@@ -100,7 +100,7 @@ class Home extends GetView<HomeController> {
                         style: OutlinedButton.styleFrom(
                             side: const BorderSide(
                                 color: Colors.purple, width: 3)),
-                        onPressed: () async {
+                        onPressed: () {
                           if (controller.heightController.text.isNotEmpty &&
                               controller.weightController.text.isNotEmpty &&
                               controller.weightController.text.length > 3) {
@@ -115,8 +115,7 @@ class Home extends GetView<HomeController> {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 10),
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       IconButton(
                                         onPressed: () {
@@ -127,18 +126,6 @@ class Home extends GetView<HomeController> {
                                           Icons.arrow_back_ios_new,
                                           color: Colors.white,
                                           size: 33,
-                                        ),
-                                      ),
-                                      TextButton(
-                                        style: TextButton.styleFrom(
-                                            side: const BorderSide(
-                                                color: Colors.white)),
-                                        onPressed: () {},
-                                        child: const Text(
-                                          'Saiba mais',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
                                         ),
                                       ),
                                     ],
@@ -219,6 +206,7 @@ class Home extends GetView<HomeController> {
                                                   ),
                                                   onPressed: () {
                                                     Get.back();
+                                                    controller.clearFields();
                                                   },
                                                   child: const Text(
                                                     'Não',
