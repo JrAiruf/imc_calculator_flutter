@@ -21,6 +21,7 @@ class AppPages {
     GetPage(
       name: AppRoutes.INFORMATIONPAGE,
       page: () => InformationPage(),
+       binding: ImcBind(),
     ),
   ];
 }

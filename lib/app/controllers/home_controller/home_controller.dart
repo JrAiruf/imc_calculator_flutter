@@ -9,7 +9,7 @@ class HomeController extends GetxController {
   HomeController({required UserRepository userRepository})
       : _userRepository = userRepository;
 
-  UserRepository _userRepository;
+  final UserRepository _userRepository;
 
   final heightController = TextEditingController();
   final weightController = TextEditingController();

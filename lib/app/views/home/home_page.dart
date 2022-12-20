@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:imc_calculator_flutter/app/controllers/home_controller/home_controller.dart';
@@ -17,7 +19,13 @@ class Home extends GetView<HomeController> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(actions: [
+        IconButton(
+            onPressed: () {
+              Get.offNamed(AppRoutes.IMCSCREEN);
+            },
+            icon: const Icon(Icons.list_alt))
+      ]),
       bottomNavigationBar: const AppBottomNavigationBar(
         position: NavigationBarPosition.newCalculation,
       ),
@@ -97,7 +105,8 @@ class Home extends GetView<HomeController> {
                               controller.weightController.text.isNotEmpty &&
                               controller.weightController.text.length > 3) {
                             _formkey.currentState!.save();
-                            imcModel.lastCalculation = DateTime.now().toString();
+                            imcModel.lastCalculation =
+                                DateTime.now().toString();
                             imcModel.result = controller.calculateImc(
                                 weight: controller.weightController.text,
                                 height: controller.heightController.text);
@@ -182,7 +191,8 @@ class Home extends GetView<HomeController> {
                                               children: [
                                                 TextButton(
                                                   style: TextButton.styleFrom(
-                                                    fixedSize: Size(18, 30),
+                                                    fixedSize:
+                                                        const Size(18, 30),
                                                   ),
                                                   onPressed: () {
                                                     controller
@@ -204,9 +214,12 @@ class Home extends GetView<HomeController> {
                                                 ),
                                                 TextButton(
                                                   style: TextButton.styleFrom(
-                                                    fixedSize: Size(18, 30),
+                                                    fixedSize:
+                                                        const Size(18, 30),
                                                   ),
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    Get.back();
+                                                  },
                                                   child: const Text(
                                                     'Não',
                                                     style: TextStyle(
